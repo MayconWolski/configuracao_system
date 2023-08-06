@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="us">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <title>Estoque</title>
+</head>
+<body>
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Flask and Mysql</h2>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                    Open modal</button>
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for row in produtos %}
+                    <tr>
+                        <td>{{row.0}}</td>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>R${{row.3}}</td>
+                        
+                        <td>
+
+                            <a href="#!" button type="button" class="btn btn-warning btn-xs" data-bs-toggle="modal" data-bs-target="#modalEdit{{row.0}}">Edit</a>
+                            <a href="/deletar/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('gfhtfghfgth')"  >deletar</a>
+                        </td>
+                    </tr>
+
+<!----------------------------------------------------------------------------------------------------------------------------------------------------->
+                            <!-- The Modal -->
+                    <div class="modal" id="modalEdit{{row.0}}">
+                        <div class="modal-dialog">
+                        <div class="modal-content">
+                    
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                            <h4 class="modal-title">Edit</h4>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                    
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <form action="{{url_for('update_data')}}", method="post">
+                                    <div class="form-group">
+                                        <label>Nome</label>
+                                        <input type="hidden" name="id" value="{{row.0}}" placeholder="ID">
+                                        <input type="text" class="form-control" name="nome" value="{{row.1}}" placeholder="Nome">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Quantidade</label>
+                                        <input type="text" class="form-control" name="quantidade" value="{{row.2}}" placeholder="Quantidade">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Valor</label>
+                                        <input type="text" class="form-control" name="valor" value="{{row.3}}" placeholder="Valor">
+                                    </div>
+                                
+                                    <div class="form-group">
+                    <p></p>                    
+                                    <button type="update" class="btn btn-warning">Update</button>
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </form>
+                            </div>
+                    
+                        </div>
+                        </div>
+                    </div>
+
+                        {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+        </div>
+      </div>
+
+<!-------------------------------------------------------------------------------------------------------->>
+      <!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form action="{{url_for('insert_data')}}", method="post">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" class="form-control" name="nome" placeholder="Nome">
+                </div>
+                <div class="form-group">
+                    <label>Quantidade</label>
+                    <input type="text" class="form-control" name="quantidade" placeholder="Quantidade">
+                </div>
+                <div class="form-group">
+                    <label>Valor</label>
+                    <input type="text" class="form-control" name="valor" placeholder="Valor">
+                </div>
+              
+                <div class="form-group">
+<p></p>                    
+                  <button type="submit" class="btn btn-primary">Adiciona</button>
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+  
+      </div>
+    </div>
+</div>
+</body>
+</html>
